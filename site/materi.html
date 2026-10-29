@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Materi P09 - Login Session</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <h1 class="mb-3">📖 Materi P09: Login Session</h1>
+    <a href="index.html" class="btn btn-sm btn-outline-secondary mb-3">← Kembali</a>
+
+    <h3>1. Konsep</h3>
+    <ul>
+      <li><strong>Autentikasi:</strong> verifikasi identitas pengguna.</li>
+      <li><strong>Session:</strong> menyimpan status login di server.</li>
+      <li><strong>Password:</strong> disimpan sebagai hash (bcrypt) via <code>password_hash()</code>.</li>
+    </ul>
+
+    <h3>2. Alur</h3>
+    <ol>
+      <li>Register akun → hash password → simpan ke tabel <code>pengguna</code>.</li>
+      <li>Login → <code>password_verify()</code> → <code>session_regenerate_id()</code> → simpan <code>$_SESSION['pengguna']</code>.</li>
+      <li>Akses halaman data → cek session (wajib-login).</li>
+      <li>Logout → hapus session & cookie.</li>
+    </ol>
+
+    <h3>3. Keamanan</h3>
+    <ul>
+      <li>Prepared statement (PDO) → cegah SQL injection.</li>
+      <li>CSRF token pada form POST.</li>
+      <li>Session cookie: httponly, samesite=Lax.</li>
+      <li>Logout hanya via POST bertoken.</li>
+    </ul>
+
+    <h3>4. Struktur Tabel</h3>
+    <pre class="bg-dark text-light p-3 rounded"><code>CREATE TABLE pengguna (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(30) NOT NULL UNIQUE,
+  nama VARCHAR(100) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  dibuat DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE mahasiswa (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100) NOT NULL,
+  nim VARCHAR(20) NOT NULL UNIQUE,
+  email VARCHAR(254) NOT NULL
+);</code></pre>
+
+    <h3>5. File Penting</h3>
+    <ul>
+      <li><code>koneksi.php</code> - koneksi PDO MySQL.</li>
+      <li><code>keamanan.php</code> - session + CSRF.</li>
+      <li><code>login.php</code> - login.</li>
+      <li><code>daftar-akun.php</code> - register.</li>
+      <li><code>wajib-login.php</code> - proteksi halaman.</li>
+      <li><code>form.php</code> - daftar + tambah mahasiswa.</li>
+      <li><code>tambah.php / ubah.php / hapus.php</code> - CRUD.</li>
+    </ul>
+  </div>
+</body>
+</html>

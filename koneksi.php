@@ -2,7 +2,7 @@
 // Pengaturan database XAMPP latihan di laptop ini.
 // Port bawaan XAMPP biasanya 3306. Paket laboratorium memakai 3307; sesuaikan bila perlu.
 $host = '127.0.0.1';
-$port = 3307;
+$port = 3306;
 $database = 'sia_praktikum';
 $userDb = 'root';
 // Nama $passwordDb sengaja dibedakan dari $password milik form login.

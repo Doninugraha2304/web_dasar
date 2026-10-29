@@ -18,6 +18,7 @@ Fitur pada tahap ini:
    php -S localhost:8000
    ```
 5. Buka `http://localhost:8000/daftar-akun.php`, buat akun latihan, lalu masuk melalui `login.php`.
+6. Materi + kode + instruksi praktikum: `http://localhost:8000/dashboard_materi.php`.
 
 Jalankan melalui web server (http://localhost/...), jangan buka file langsung.
 

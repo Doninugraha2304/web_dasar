@@ -1,0 +1,8 @@
+SIA PRAKTIKUM - PERTEMUAN 9
+
+1. Ekstrak sia-p09 ke C:\xampp\htdocs.
+2. Import database.sql melalui phpMyAdmin.
+3. Sesuaikan port di koneksi.php (3307 atau 3306).
+4. Buka http://localhost/sia-p09/public/daftar-akun.php
+
+Baca README.md dan jobsheet Pertemuan 9. Gunakan data fiktif.

@@ -1,77 +1,47 @@
-# Web Dasar - Pertemuan: Login / Autentikasi (PHP Native)
+# SIA Praktikum - Pertemuan 9 (Login Session)
 
-Materi praktikum dasar untuk mata kuliah/praktikum **Web Dasar** dengan topik **Login / Autentikasi** menggunakan **PHP native** (tanpa framework) dan **MySQL**.
+Kode awal praktikum Pemrograman Web. Lanjutan dari CRUD Mahasiswa (Praktikum 5-7).
 
-## Tujuan Pembelajaran
+Fitur pada tahap ini:
+- login dan logout dengan session
+- password disimpan sebagai hash (password_hash)
+- semua halaman data hanya terbuka setelah login
 
-Setelah pertemuan ini, mahasiswa mampu:
+## Cara menjalankan
 
-1. Memahami konsep autentikasi (register, login, logout).
-2. Menyimpan password dengan aman menggunakan `password_hash()` dan `password_verify()`.
-3. Menggunakan session PHP untuk menjaga status login.
-4. Melindungi halaman agar hanya bisa diakses user yang sudah login.
-5. Menggunakan prepared statement untuk mencegah SQL injection.
-6. (Bonus) Memahami CSRF token dasar.
-
-## Struktur Folder
-
-```
-web_dasar_prak/
-├── README.md
-├── sql/
-│   └── webdasar_auth.sql
-├── src/
-│   ├── config.php      # konfigurasi DB, session, helper
-│   └── auth.php        # fungsi autentikasi
-├── public/             # document root (jalankan server dari sini)
-│   ├── index.php
-│   ├── register.php
-│   ├── login.php
-│   ├── logout.php
-│   ├── dashboard.php
-│   └── style.css
-└── docs/
-    └── materi.md       # catatan teori & latihan
-```
-
-## Cara Menjalankan
-
-1. Pastikan PHP 7.4+ dan MySQL/MariaDB terpasang.
-2. Buat database (otomatis juga dibuat oleh `config.php`, tapi bisa manual):
-
-   ```sql
-   CREATE DATABASE webdasar_auth CHARACTER SET utf8mb4;
-   ```
-
-3. Sesuaikan kredensial di `src/config.php` jika perlu (default: host=localhost, user=root, pass='').
-4. Jalankan server bawaan PHP dari folder `public`:
-
+1. Pastikan Apache (atau PHP built-in server) dan MySQL berjalan.
+2. Import `database.sql` melalui phpMyAdmin (tab Import). File ini membuat database `sia_praktikum` dan aman diimpor ulang.
+3. Sesuaikan port pada `koneksi.php`: paket laboratorium `3307`, XAMPP standar `3306`.
+4. Jalankan server dari folder `public`:
    ```bash
    cd public
    php -S localhost:8000
    ```
+5. Buka `http://localhost:8000/daftar-akun.php`, buat akun latihan, lalu masuk melalui `login.php`.
 
-5. Buka browser: `http://localhost:8000/index.php`
-6. Materi + kode + instruksi praktikum: `http://localhost:8000/dashboard_materi.php`
+Jalankan melalui web server (http://localhost/...), jangan buka file langsung.
 
-## Alur Aplikasi
+## Struktur folder
 
-```
-Register -> simpan user (password di-hash)
-Login    -> verifikasi password -> buat session
-Dashboard -> halaman terproteksi (butuh login)
-Logout   -> hapus session
-```
+| File | Tugas |
+| --- | --- |
+| `koneksi.php` | Koneksi PDO ke database `sia_praktikum` |
+| `database.sql` | Membuat database dan tabel; aman dijalankan ulang |
+| `public/login.php` | Masuk (`password_verify`, `session_regenerate_id`) |
+| `public/daftar-akun.php` | Membuat akun latihan (`password_hash`) |
+| `public/logout.php` | Keluar melalui POST bertoken |
+| `public/wajib-login.php` | Penjaga halaman: alihkan ke login bila belum masuk |
+| `public/nav.php` | Navigasi dan tombol Keluar |
+| `public/form.php` | Daftar dan tambah mahasiswa |
+| `public/tambah.php`, `edit.php`, `ubah.php`, `hapus.php` | CRUD mahasiswa |
 
-## Akun
+## Catatan keamanan
 
-Tidak ada akun bawaan. Silakan **Daftar** terlebih dahulu, lalu **Masuk**.
+- Gunakan data fiktif. Jangan memakai password yang Anda pakai di akun lain.
+- `daftar-akun.php` hanya untuk latihan lokal. Pada sistem nyata akun dibuat oleh admin.
+- Paket ini untuk laptop sendiri (localhost), belum siap dipasang di server publik.
 
-## Catatan Keamanan
+## Referensi tambahan
 
-- Password tidak pernah disimpan dalam bentuk teks biasa.
-- Query menggunakan prepared statement (PDO).
-- Session ID diregenerasi saat login (cegah session fixation).
-- Output di-escape dengan `htmlspecialchars()`.
-- CSRF token pada form.
-- Ini contoh pembelajaran; untuk produksi tambahkan HTTPS, rate limiting, validasi password kuat, dll.
+Versi auth dasar (tanpa CRUD) tersedia di folder `referensi/auth-dasar/`.
+Materi teori + latihan: `referensi/auth-dasar/docs/materi.md`.

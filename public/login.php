@@ -1,71 +1,70 @@
 <?php
-// public/login.php - Form login
-require_once __DIR__ . '/../src/auth.php';
+// ===== BAGIAN 1: SIAPKAN SESSION =====
+require __DIR__ . '/keamanan.php';
+if (isset($_SESSION['pengguna'])) {
+    header('Location: form.php', true, 303);
+    exit;
+}
+$pesan = '';
 
+// ===== BAGIAN 2: PERIKSA USERNAME DAN PASSWORD =====
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $token = $_POST['csrf_token'] ?? '';
-    if (!csrf_check($token)) {
-        flash_set('error', 'Token CSRF tidak valid.');
-        header('Location: /login.php');
+    // Koneksi dibuka lebih dulu, baru input dibaca, agar variabel koneksi tidak menimpa input.
+    $pdo = require __DIR__ . '/../koneksi.php';
+    $username = is_string($_POST['username'] ?? null) ? trim($_POST['username']) : '';
+    $password = is_string($_POST['password'] ?? null) ? $_POST['password'] : '';
+    $query = $pdo->prepare('SELECT id, nama, password_hash FROM pengguna WHERE username = ?');
+    $query->execute([$username]);
+    $akun = $query->fetch(PDO::FETCH_ASSOC);
+
+    // password_verify membandingkan password yang diketik dengan hash di database.
+    if ($akun && password_verify($password, $akun['password_hash'])) {
+        // ID session baru mencegah penyerang memakai ID session lama (session fixation).
+        session_regenerate_id(true);
+        $_SESSION['pengguna'] = ['id' => (int) $akun['id'], 'nama' => $akun['nama']];
+        header('Location: form.php', true, 303);
         exit;
     }
-
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    if ($username === '' || $password === '') {
-        flash_set('error', 'Username dan password wajib diisi.');
-        header('Location: /login.php');
-        exit;
-    }
-
-    if (login_user($username, $password)) {
-        flash_set('success', 'Login berhasil.');
-        header('Location: /dashboard.php');
-        exit;
-    } else {
-        flash_set('error', 'Username atau password salah.');
-        header('Location: /login.php');
-        exit;
-    }
+    // Pesan sengaja dibuat sama agar tidak membocorkan username mana yang terdaftar.
+    $pesan = 'Username atau password salah.';
 }
 ?>
 <!doctype html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
-    <title>Masuk</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Masuk - SIA Praktikum</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Masuk</h1>
+<body class="container py-5" style="max-width: 420px">
 
-        <?php if ($err = flash_get('error')): ?>
-            <div class="message error"><?php echo htmlspecialchars($err); ?></div>
-        <?php endif; ?>
-        <?php if ($msg = flash_get('success')): ?>
-            <div class="message success"><?php echo htmlspecialchars($msg); ?></div>
-        <?php endif; ?>
-
-        <form method="post" action="/login.php">
-            <input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit">Masuk</button>
-        </form>
-
-        <div class="links">
-            <a href="/register.php">Belum punya akun? Daftar</a>
-        </div>
+<h1 class="h3 mb-3">Masuk SIA Praktikum</h1>
+<!-- ===== BAGIAN 3: PESAN ===== -->
+<?php
+if ($pesan !== '') {
+    echo '<p class="alert alert-danger">' . $pesan . '</p>';
+}
+if (($_GET['pesan'] ?? '') === 'akun') {
+    echo '<p class="alert alert-success">Akun berhasil dibuat. Silakan masuk.</p>';
+}
+if (($_GET['pesan'] ?? '') === 'keluar') {
+    echo '<p class="alert alert-secondary">Anda sudah keluar.</p>';
+}
+?>
+<!-- ===== BAGIAN 4: FORM LOGIN ===== -->
+<form action="login.php" method="post">
+    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+    <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" id="username" name="username" type="text" maxlength="30" autocomplete="username" required>
     </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" id="password" name="password" type="password" maxlength="72" autocomplete="current-password" required>
+    </div>
+    <button class="btn btn-primary w-100" type="submit">Masuk</button>
+</form>
+<p class="mt-3 small">Belum punya akun latihan? <a href="daftar-akun.php">Buat akun</a></p>
 </body>
 </html>

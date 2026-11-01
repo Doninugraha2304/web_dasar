@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presentasi Interaktif — Web Dasar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <a class="brand" href="index.html">Web Dasar · Presentasi</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="materi.html">P09</a>
+        <a href="p10.html">P10</a>
+        <a href="presentasi.html">Presentasi</a>
+        <a href="setup.html">Setup</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <h2>🎬 Presentasi Interaktif</h2>
+      <p>Pilih topik, lalu tekan <strong>Next</strong> untuk melihat alur langkah demi langkah.</p>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login">Login Session</button>
+        <button class="tab-btn" data-tab="upload">Upload Foto</button>
+        <button class="tab-btn" data-tab="security">Keamanan</button>
+        <button class="tab-btn" data-tab="quiz">Uji Konsep</button>
+      </div>
+
+      <div id="login" class="tab-panel active">
+        <div class="diagram">
+          <div class="flow" id="loginFlow"></div>
+          <div class="controls">
+            <button class="btn btn-outline" id="loginPrev">Prev</button>
+            <button class="btn" id="loginNext">Next</button>
+          </div>
+          <p id="loginText" class="callout"></p>
+        </div>
+      </div>
+
+      <div id="upload" class="tab-panel">
+        <div class="diagram">
+          <div class="flow" id="uploadFlow"></div>
+          <div class="controls">
+            <button class="btn btn-outline" id="uploadPrev">Prev</button>
+            <button class="btn" id="uploadNext">Next</button>
+          </div>
+          <p id="uploadText" class="callout"></p>
+        </div>
+      </div>
+
+      <div id="security" class="tab-panel">
+        <div class="diagram">
+          <h3>Checklist Keamanan</h3>
+          <div id="secList"></div>
+          <div class="progress-bar"><div id="secProgress"></div></div>
+          <p id="secStatus" class="callout"></p>
+        </div>
+      </div>
+
+      <div id="quiz" class="tab-panel">
+        <div class="diagram">
+          <h3 id="qTitle"></h3>
+          <div id="qOptions"></div>
+          <p id="qFeedback" class="callout"></p>
+          <button class="btn" id="qNext">Soal Berikutnya</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">Presentasi Interaktif · Web Dasar</div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script>
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Login flow
+    const loginSteps = [
+      { nodes:['Browser','Server','DB'], text:'User mengirim username/password lewat form POST.' },
+      { nodes:['Browser','Server','DB'], text:'Server cek CSRF token, lalu query user dengan prepared statement.' },
+      { nodes:['Browser','Server','DB'], active:1, text:'password_verify() membandingkan password dengan hash bcrypt.' },
+      { nodes:['Browser','Server','DB'], active:1, text:'Jika cocok, session_regenerate_id(true) lalu simpan $_SESSION.' },
+      { nodes:['Browser','Server','DB'], active:2, text:'Redirect ke dashboard/form.php. Halaman dicek wajib-login.' },
+    ];
+    let li = 0;
+    function renderFlow(id, steps, index) {
+      const el = document.getElementById(id);
+      el.innerHTML = '';
+      steps[index].nodes.forEach((n, i) => {
+        const div = document.createElement('div');
+        div.className = 'node' + (steps[index].active === i ? ' active' : '');
+        div.textContent = n;
+        el.appendChild(div);
+        if (i < steps[index].nodes.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.className = 'arrow';
+          arrow.textContent = '→';
+          el.appendChild(arrow);
+        }
+      });
+    }
+    function updateLogin() {
+      renderFlow('loginFlow', loginSteps, li);
+      document.getElementById('loginText').textContent = loginSteps[li].text;
+    }
+    document.getElementById('loginNext').onclick = () => { if (li < loginSteps.length-1) li++; updateLogin(); };
+    document.getElementById('loginPrev').onclick = () => { if (li > 0) li--; updateLogin(); };
+    updateLogin();
+
+    // Upload flow
+    const uploadSteps = [
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], text:'Form multipart/form-data mengirim file ke server.' },
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], active:1, text:'PHP menyimpan file sementara di direktori tmp.' },
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], active:2, text:'simpanFoto() cek error, ukuran <=1MB, MIME via finfo, struktur gambar.' },
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], active:3, text:'move_uploaded_file() memindahkan ke uploads/ dengan nama acak.' },
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], active:4, text:'INSERT/UPDATE menyimpan nama file ke database.' },
+      { nodes:['Browser','tmp','Validasi','Uploads','DB'], active:4, text:'Foto lama dihapus hanya setelah UPDATE berhasil.' },
+    ];
+    let ui = 0;
+    function updateUpload() {
+      renderFlow('uploadFlow', uploadSteps, ui);
+      document.getElementById('uploadText').textContent = uploadSteps[ui].text;
+    }
+    document.getElementById('uploadNext').onclick = () => { if (ui < uploadSteps.length-1) ui++; updateUpload(); };
+    document.getElementById('uploadPrev').onclick = () => { if (ui > 0) ui--; updateUpload(); };
+    updateUpload();
+
+    // Security checklist
+    const secItems = [
+      'Password di-hash (password_hash)',
+      'Verifikasi (password_verify)',
+      'Prepared statement (PDO)',
+      'CSRF token pada POST',
+      'Escape output (htmlspecialchars)',
+      'Regenerate session ID saat login',
+      'Logout via POST bertoken',
+      'Validasi MIME dari isi file',
+      'Nama file acak',
+    ];
+    const secState = {};
+    const secList = document.getElementById('secList');
+    secItems.forEach((item, i) => {
+      const label = document.createElement('label');
+      label.style.display = 'block';
+      label.style.margin = '6px 0';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.addEventListener('change', () => { secState[i] = cb.checked; updateSec(); });
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(' ' + item));
+      secList.appendChild(label);
+    });
+    function updateSec() {
+      const done = Object.values(secState).filter(Boolean).length;
+      const pct = Math.round((done / secItems.length) * 100);
+      document.getElementById('secProgress').style.width = pct + '%';
+      document.getElementById('secStatus').textContent = `Progress: ${done}/${secItems.length} (${pct}%)`;
+    }
+    updateSec();
+
+    // Quiz
+    const questions = [
+      {
+        q: 'Mengapa accept="image/*" di browser tidak cukup untuk keamanan upload?',
+        options: ['Karena browser bisa dimanipulasi', 'Karena file otomatis aman', 'Karena server tidak perlu validasi'],
+        answer: 0,
+        explain: 'Browser hanya petunjuk; server tetap harus cek MIME dan struktur file.'
+      },
+      {
+        q: 'Kapan foto lama boleh dihapus saat edit?',
+        options: ['Sebelum UPDATE', 'Hanya setelah UPDATE berhasil', 'Saat form dibuka'],
+        answer: 1,
+        explain: 'Hapus setelah UPDATE berhasil agar foto lama tidak hilang jika NIM duplikat.'
+      },
+      {
+        q: 'Fungsi simpanFoto() mengembalikan apa jika user tidak memilih file?',
+        options: ['false', 'null', 'nama file kosong'],
+        answer: 1,
+        explain: 'Kontrak helper: null jika tidak memilih file.'
+      }
+    ];
+    let qi = 0;
+    function renderQuiz() {
+      const q = questions[qi];
+      document.getElementById('qTitle').textContent = `Soal ${qi+1}: ${q.q}`;
+      const opts = document.getElementById('qOptions');
+      opts.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt;
+        btn.onclick = () => {
+          document.querySelectorAll('.quiz-option').forEach(b=>b.classList.remove('correct','wrong'));
+          btn.classList.add(i === q.answer ? 'correct' : 'wrong');
+          document.getElementById('qFeedback').textContent = q.explain;
+        };
+        opts.appendChild(btn);
+      });
+      document.getElementById('qFeedback').textContent = '';
+    }
+    document.getElementById('qNext').onclick = () => { qi = (qi + 1) % questions.length; renderQuiz(); };
+    renderQuiz();
+  </script>
+</body>
+</html>

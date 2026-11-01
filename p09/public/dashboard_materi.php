@@ -15,7 +15,7 @@
 </head>
 <body class="container py-4">
     <h1 class="mb-3">📚 Dashboard Materi: P09 Login Session</h1>
-    <p>Halaman ini berisi kode dan instruksi untuk menyelesaikan praktikum login/session (SIA).</p>
+    <p>Halaman ini berisi kode dan instruksi untuk menyelesaikan praktikum login/session (Web Dasar).</p>
 
     <div class="step">
         <h2>1. Persiapan</h2>

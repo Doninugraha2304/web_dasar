@@ -20,7 +20,7 @@ $fotoLama = $data['foto'] ?? null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Mahasiswa + Foto - SIA Praktikum P10</title>
+    <title>Edit Mahasiswa + Foto - Praktikum Web Dasar P10</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body class="container py-4">

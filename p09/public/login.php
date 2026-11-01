@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Masuk - SIA Praktikum</title>
+    <title>Masuk - Praktikum Web Dasar</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body class="container py-5" style="max-width: 420px">
 
-<h1 class="h3 mb-3">Masuk SIA Praktikum</h1>
+<h1 class="h3 mb-3">Masuk Praktikum Web Dasar</h1>
 <!-- ===== BAGIAN 3: PESAN ===== -->
 <?php
 if ($pesan !== '') {

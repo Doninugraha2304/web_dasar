@@ -1,4 +1,4 @@
-SIA PRAKTIKUM - PERTEMUAN 9
+PRAKTIKUM WEB DASAR - PERTEMUAN 9
 
 1. Ekstrak sia-p09 ke C:\xampp\htdocs.
 2. Import database.sql melalui phpMyAdmin.

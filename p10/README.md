@@ -1,4 +1,4 @@
-# SIA Praktikum - Pertemuan 10 (Upload Foto)
+# Praktikum Web Dasar - Pertemuan 10 (Upload Foto)
 
 Lanjutan P09: CRUD mahasiswa ditambah upload foto.
 

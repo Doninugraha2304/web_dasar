@@ -1,6 +1,6 @@
 # Tutorial MySQL untuk Mahasiswa (XAMPP)
 
-Dokumen ini menjelaskan cara setup MySQL agar proyek SIA Praktikum P09 berjalan.
+Dokumen ini menjelaskan cara setup MySQL agar proyek Praktikum Web Dasar P09 berjalan.
 
 ## 1. Pastikan MySQL Berjalan
 

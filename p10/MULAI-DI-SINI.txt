@@ -1,4 +1,4 @@
-SIA PRAKTIKUM - PERTEMUAN 10
+PRAKTIKUM WEB DASAR - PERTEMUAN 10
 
 1. Ekstrak p10 ke folder htdocs (atau jalankan dari folder p10/public).
 2. Import database.sql melalui phpMyAdmin.

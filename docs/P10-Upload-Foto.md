@@ -7,7 +7,7 @@ Sumber: `docs/p10-upload foto/ruls.md`.
 - Upload dasar: browser mengirim `multipart/form-data`; PHP menaruh file sementara di `$_FILES`.
 - Database menyimpan nama file, bukan byte gambar.
 - `simpanFoto()` mengembalikan nama acak atau `null` jika tidak memilih file.
-- `foto.php` memeriksa error upload, batas 1 MB, MIME dari isi file dengan `finfo`, struktur gambar, dan memindahkan file dengan `move_uploaded_file`.
+- `foto.php` memeriksa error upload, batas 1 MB, MIME (media type atau content type) dari isi file dengan `finfo`, struktur gambar, dan memindahkan file dengan `move_uploaded_file`.
 - `accept` di browser hanya petunjuk; server tetap memeriksa.
 - Nama acak mencegah nama asli menjadi path.
 - `hapusFoto()` hanya menerima pola nama yang dibuat server.

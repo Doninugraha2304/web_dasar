@@ -21,7 +21,7 @@
         <li><strong>P10-1:</strong> <code>form.php</code> dan <code>edit.php</code> → lengkapi <code>enctype="multipart/form-data"</code>, input foto. Jangan hapus field csrf.</li>
         <li><strong>P10-2:</strong> <code>tambah.php</code> → ganti nilai sementara <code>$foto</code> dengan <code>simpanFoto()</code> dari helper <code>foto.php</code>. INSERT berparameter dan pembersihan saat gagal sudah disediakan.</li>
         <li><strong>P10-3:</strong> <code>ubah.php</code> → isi <code>$fotoBaru</code> dari <code>simpanFoto()</code>. Pertahankan cabang null (foto tidak diganti), UPDATE, dan hapus foto lama hanya setelah berhasil.</li>
-        <li>Opsional: placeholder inisial bila foto kosong. Jangan menambah jenis file atau menghapus pemeriksaan MIME.</li>
+        <li>Opsional: placeholder inisial bila foto kosong. Jangan menambah jenis file atau menghapus pemeriksaan MIME (media type atau content type).</li>
     </ul>
 
     <h2>2. Instruksi Pengujian</h2>
@@ -62,7 +62,7 @@
     <h2>11. Miskonsepsi Umum</h2>
     <ul>
         <li><code>$_FILES</code> kosong: periksa <code>enctype</code>, <code>name="foto"</code>, dan method POST.</li>
-        <li>Foto null setelah simpan: periksa pemanggilan helper dan parameter INSERT, bukan mengganti MIME agar lolos.</li>
+        <li>Foto null setelah simpan: periksa pemanggilan helper dan parameter INSERT, bukan mengganti MIME (media type atau content type) agar lolos.</li>
         <li>Upload ditolak: baca pesan ukuran/jenis. Jangan memakai nama file asli sebagai path.</li>
     </ul>
 

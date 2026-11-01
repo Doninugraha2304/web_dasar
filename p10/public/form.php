@@ -55,7 +55,7 @@ if (isset($_GET['pesan'])) {
     </div>
     <div class="mb-3">
         <label class="form-label" for="foto">Foto (JPG/PNG/GIF/WEBP, maks 1 MB)</label>
-        <!-- accept hanya petunjuk browser; server tetap memeriksa MIME dari isi file. -->
+        <!-- accept hanya petunjuk browser; server tetap memeriksa MIME (media type atau content type) dari isi file. -->
         <input class="form-control" id="foto" name="foto" type="file" accept="image/*">
     </div>
     <button class="btn btn-primary" type="submit">Simpan data</button>

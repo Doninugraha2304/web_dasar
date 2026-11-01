@@ -5,7 +5,7 @@ Lanjutan P09: CRUD mahasiswa ditambah upload foto.
 Fitur:
 - login/session + CSRF
 - upload foto JPG/PNG/GIF/WEBP (maks 1 MB)
-- validasi MIME dari isi file (finfo)
+- validasi MIME (media type atau content type) dari isi file (finfo)
 - nama file acak
 - hapus foto lama hanya setelah UPDATE berhasil
 - placeholder inisial jika foto kosong
@@ -39,7 +39,7 @@ Fitur:
 
 ## Catatan keamanan
 
-- `accept` di browser hanya petunjuk; server tetap cek MIME dan struktur gambar.
+- `accept` di browser hanya petunjuk; server tetap cek MIME (media type atau content type) dan struktur gambar.
 - Nama file asli tidak dipakai sebagai path.
 - Folder `uploads` publik adalah kompromi latihan; `.htaccess` menolak skrip pada Apache.
 - PHP built-in server tidak menerapkan `.htaccess`.

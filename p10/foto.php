@@ -19,7 +19,7 @@ function simpanFoto(array $file): ?string
         throw new RuntimeException('Ukuran foto maksimal 1 MB.');
     }
 
-    // MIME dibaca dari isi file, bukan dari nama/accept browser.
+    // MIME (media type atau content type) dibaca dari isi file, bukan dari nama/accept browser.
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mime = $finfo->file($file['tmp_name']);
     $ekstensi = match ($mime) {

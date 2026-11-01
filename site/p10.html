@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P10 — Upload Foto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <a class="brand" href="index.html">Web Dasar · P09/P10</a>
+      <div class="nav-links">
+        <a href="materi.html">P09</a>
+        <a href="p10.html">P10</a>
+        <a href="setup.html">Setup</a>
+        <a href="tutorial-mysql.html">MySQL</a>
+        <a href="https://github.com/Doninugraha2304/web_dasar" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <h2>📷 P10 — Upload Foto</h2>
+      <p>Pertemuan 10 menambahkan upload foto ke CRUD mahasiswa dengan helper aman.</p>
+
+      <h3>TODO / Pekerjaan Inti</h3>
+      <ul class="clean">
+        <li><strong>P10-1:</strong> <code>form.php</code> dan <code>edit.php</code> → lengkapi <code>enctype="multipart/form-data"</code>, input foto. Jangan hapus field csrf.</li>
+        <li><strong>P10-2:</strong> <code>tambah.php</code> → ganti nilai sementara <code>$foto</code> dengan <code>simpanFoto()</code> dari helper <code>foto.php</code>.</li>
+        <li><strong>P10-3:</strong> <code>ubah.php</code> → isi <code>$fotoBaru</code> dari <code>simpanFoto()</code>, pertahankan cabang null, UPDATE, hapus foto lama hanya setelah berhasil.</li>
+      </ul>
+
+      <h3>Aturan Helper</h3>
+      <ul class="clean">
+        <li>Maksimal 1 MB.</li>
+        <li>MIME dibaca dari isi file dengan <code>finfo</code>, bukan dari browser.</li>
+        <li>Struktur gambar diperiksa dengan <code>getimagesize()</code>.</li>
+        <li>Nama file acak (32 hex + ekstensi).</li>
+        <li><code>hapusFoto()</code> hanya menerima pola nama yang dibuat server.</li>
+      </ul>
+
+      <h3>Urutan Aman</h3>
+      <ol>
+        <li>Create: boleh tanpa foto.</li>
+        <li>Edit tanpa foto: kolom foto tetap.</li>
+        <li>Foto lama dihapus hanya setelah UPDATE berhasil.</li>
+        <li>Foto baru dibersihkan bila SQL gagal.</li>
+      </ol>
+
+      <div class="code-block">
+        <pre>// contoh pemanggilan
+$foto = simpanFoto($_FILES['foto'] ?? []);</pre>
+      </div>
+
+      <div class="callout warning">
+        Folder <code>uploads/</code> publik adalah kompromi latihan. Apache <code>.htaccess</code> menolak skrip, tetapi PHP built-in server tidak menerapkan <code>.htaccess</code>.
+      </div>
+
+      <p><a href="https://github.com/Doninugraha2304/web_dasar/tree/main/p10" target="_blank">Lihat kode P10 di GitHub</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">Web Dasar · P10 Upload Foto</div>
+  </footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

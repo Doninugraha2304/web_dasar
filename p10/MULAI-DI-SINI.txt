@@ -1,0 +1,8 @@
+SIA PRAKTIKUM - PERTEMUAN 10
+
+1. Ekstrak p10 ke folder htdocs (atau jalankan dari folder p10/public).
+2. Import database.sql melalui phpMyAdmin.
+3. Sesuaikan port di koneksi.php (3306 atau 3307).
+4. Buka http://localhost/.../public/daftar-akun.php, buat akun, lalu masuk.
+
+Baca ruls.md / dashboard_materi.php. Gunakan data fiktif dan foto kecil (< 1 MB).

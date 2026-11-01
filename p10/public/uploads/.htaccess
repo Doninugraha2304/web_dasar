@@ -1,0 +1,5 @@
+# Latihan lokal: tolak eksekusi skrip di folder upload.
+<FilesMatch "\.(?i:php|phtml|phar|pl|py|jsp|asp|sh)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes

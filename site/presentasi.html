@@ -31,6 +31,7 @@
         <button class="tab-btn active" data-tab="login">Login Session</button>
         <button class="tab-btn" data-tab="upload">Upload Foto</button>
         <button class="tab-btn" data-tab="security">Keamanan</button>
+        <button class="tab-btn" data-tab="news">Berita & CVE</button>
         <button class="tab-btn" data-tab="quiz">Uji Konsep</button>
       </div>
 
@@ -62,6 +63,55 @@
           <div id="secList"></div>
           <div class="progress-bar"><div id="secProgress"></div></div>
           <p id="secStatus" class="callout"></p>
+        </div>
+      </div>
+
+
+      <div id="news" class="tab-panel">
+        <div class="diagram">
+          <h3>Berita & CVE Terkait Upload/Keamanan</h3>
+          <p class="callout warning">
+            Contoh insiden nyata: celah upload file sering menjadi jalan masuk RCE (Remote Code Execution).
+            Selalu cek NVD/CVE terbaru sebelum produksi.
+          </p>
+
+          <div class="grid grid-3">
+            <div class="card">
+              <h3>CVE-2020-25213</h3>
+              <p>WP File Manager: unauthenticated arbitrary file upload → RCE. Pelajaran: jangan percaya nama/ekstensi file dari user.</p>
+            </div>
+            <div class="card">
+              <h3>CVE-2021-24145</h3>
+              <p>Plugin WordPress dengan upload tidak aman. Pelajaran: validasi server-side wajib, bukan hanya browser.</p>
+            </div>
+            <div class="card">
+              <h3>CVE-2024-4577</h3>
+              <p>PHP CGI argument injection (RCE). Pelajaran: keamanan PHP tidak hanya upload, tapi juga konfigurasi server.</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:20px;">Dampak Jika Upload Tidak Aman</h3>
+          <ul class="clean">
+            <li>Web shell tersimpan di server → attacker bisa eksekusi perintah.</li>
+            <li>Deface / pencurian data / ransomware.</li>
+            <li>Server dipakai botnet / crypto miner.</li>
+            <li>Kehilangan reputasi dan kepercayaan pengguna.</li>
+          </ul>
+
+          <h3>Kebiasaan Aman (Checklist)</h3>
+          <ul class="clean">
+            <li>Validasi MIME dari isi file (finfo), bukan ekstensi.</li>
+            <li>Batasi ukuran dan jenis file.</li>
+            <li>Nama file acak, jangan pakai nama asli.</li>
+            <li>Simpan di luar webroot bila memungkinkan.</li>
+            <li>Tolak eksekusi skrip di folder upload (.htaccess / Nginx rules).</li>
+            <li>Update PHP, framework, plugin, dan OS secara rutin.</li>
+            <li>Monitoring log dan backup.</li>
+          </ul>
+
+          <div class="callout">
+            <strong>Sumber rujukan:</strong> OWASP File Upload Cheat Sheet, PHP Manual (Handling file uploads, finfo, move_uploaded_file), NVD/CVE database.
+          </div>
         </div>
       </div>
 

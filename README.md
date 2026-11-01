@@ -54,6 +54,7 @@ Database: `sia_praktikum_p10` (import `p10/database.sql`).
 ## Dokumentasi
 
 - Frontend statis: folder `site/`
+- Presentasi interaktif: `site/presentasi.html`
 - Vercel deploy: import repo, Vercel membaca `vercel.json` (`outputDirectory: site`).
 - Tutorial MySQL: `docs/TUTORIAL_MYSQL.md`
 - Materi P09: `p09/public/dashboard_materi.php`

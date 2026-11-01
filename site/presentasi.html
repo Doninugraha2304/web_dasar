@@ -77,16 +77,28 @@
 
           <div class="grid grid-3">
             <div class="card">
-              <h3>CVE-2020-25213</h3>
-              <p>WP File Manager: unauthenticated arbitrary file upload → RCE. Pelajaran: jangan percaya nama/ekstensi file dari user.</p>
+              <h3>CVE-2026-64947</h3>
+              <p>Pandora FMS: chained CSRF + unrestricted file upload → RCE (PHP). Pelajaran: upload + CSRF harus diamankan bersama.</p>
             </div>
             <div class="card">
-              <h3>CVE-2021-24145</h3>
-              <p>Plugin WordPress dengan upload tidak aman. Pelajaran: validasi server-side wajib, bukan hanya browser.</p>
+              <h3>CVE-2026-64949</h3>
+              <p>Pandora FMS: incomplete extension blacklist (.phar) → upload/eksekusi file. Pelajaran: blacklist ekstensi tidak cukup; pakai allowlist MIME + validasi server.</p>
             </div>
             <div class="card">
-              <h3>CVE-2024-4577</h3>
-              <p>PHP CGI argument injection (RCE). Pelajaran: keamanan PHP tidak hanya upload, tapi juga konfigurasi server.</p>
+              <h3>CVE-2026-103541</h3>
+              <p>Form Tools: unrestricted upload via Ajax handler, exploit publik. Pelajaran: endpoint upload harus diautentikasi dan divalidasi.</p>
+            </div>
+            <div class="card">
+              <h3>CVE-2026-51882</h3>
+              <p>Langchain-Chatchat: path traversal pada endpoint upload file. Pelajaran: nama file dari user tidak boleh dipakai sebagai path.</p>
+            </div>
+            <div class="card">
+              <h3>CVE-2026-94620</h3>
+              <p>Classroom50: arbitrary file write via symlink (result.json). Pelajaran: jangan tulis file ke path yang bisa dikontrol user.</p>
+            </div>
+            <div class="card">
+              <h3>CVE-2026-62071</h3>
+              <p>WordPress File Upload: SQL injection pada plugin upload. Pelajaran: upload bukan satu-satunya risiko; input DB juga harus parameterized.</p>
             </div>
           </div>
 
@@ -110,7 +122,7 @@
           </ul>
 
           <div class="callout">
-            <strong>Sumber rujukan:</strong> OWASP File Upload Cheat Sheet, PHP Manual (Handling file uploads, finfo, move_uploaded_file), NVD/CVE database.
+            <strong>Sumber rujukan:</strong> OWASP File Upload Cheat Sheet, PHP Manual (Handling file uploads, finfo, move_uploaded_file), NVD/CVE database (contoh CVE di atas diperbarui dari NVD, Nov 2026). Cek NVD untuk CVE terbaru.
           </div>
         </div>
       </div>

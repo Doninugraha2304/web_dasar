@@ -57,6 +57,7 @@ Database: `sia_praktikum_p10` (import `p10/database.sql`).
 - Teori interaktif: `site/presentasi.html`
 - Vercel deploy: import repo, Vercel membaca `vercel.json` (`outputDirectory: site`).
 - Tutorial MySQL: `docs/TUTORIAL_MYSQL.md`
+- Tutorial XAMPP: `docs/TUTORIAL_XAMPP.md`
 - Materi P09: `p09/public/dashboard_materi.php`
 - Materi P10: `p10/public/dashboard_materi.php`
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Setup & Menjalankan — P09</title>
+  <title>Setup & Menjalankan — Monorepo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link href="assets/style.css" rel="stylesheet">
@@ -11,21 +11,21 @@
 <body>
   <nav class="navbar">
     <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
-      <a class="brand" href="index.html">Web Dasar · P09</a>
+      <a class="brand" href="index.html">Web Dasar · Monorepo</a>
       <div class="nav-links">
+        <a href="index.html">Home</a>
         <a href="materi.html">P09</a>
         <a href="p10.html">P10</a>
-        <a href="presentasi.html">Presentasi</a>
+        <a href="presentasi.html">Teori</a>
         <a href="setup.html">Setup</a>
         <a href="tutorial-mysql.html">MySQL</a>
-        <a href="https://github.com/Doninugraha2304/web_dasar" target="_blank">GitHub</a>
       </div>
     </div>
   </nav>
 
   <section class="section">
     <div class="container">
-      <h2>⚙️ Setup & Menjalankan Aplikasi</h2>
+      <h2>⚙️ Setup & Menjalankan (Monorepo)</h2>
 
       <div class="step">
         <div class="num">1</div>
@@ -42,56 +42,95 @@ git pull origin main</pre></div>
       <div class="step">
         <div class="num">2</div>
         <div class="body">
-          <h4>Setup Database MySQL</h4>
-          <p>Jalankan Apache + MySQL (XAMPP). Buka phpMyAdmin → Import → pilih <code>database.sql</code> → Go.</p>
+          <h4>Struktur Monorepo</h4>
+          <div class="code-block"><pre>web_dasar/
+├── p09/   (Pertemuan 9: Login Session + CRUD)
+├── p10/   (Pertemuan 10: Upload Foto)
+├── docs/
+├── site/  (frontend statis)
+└── vercel.json</pre></div>
         </div>
       </div>
 
       <div class="step">
         <div class="num">3</div>
         <div class="body">
-          <h4>Konfigurasi koneksi.php</h4>
-          <div class="code-block"><pre>$host = '127.0.0.1';
-$port = 3306;        // XAMPP: 3306 | Lab: 3307
-$database = 'sia_praktikum';
-$userDb = 'root';
-$passwordDb = '';</pre></div>
+          <h4>Setup Database MySQL</h4>
+          <p>Import file SQL sesuai modul:</p>
+          <ul class="clean">
+            <li>P09: <code>p09/database.sql</code> → DB <code>sia_praktikum</code></li>
+            <li>P10: <code>p10/database.sql</code> → DB <code>sia_praktikum_p10</code></li>
+          </ul>
+          <p>Via phpMyAdmin: tab Import → pilih file → Go.</p>
         </div>
       </div>
 
       <div class="step">
         <div class="num">4</div>
         <div class="body">
-          <h4>Menjalankan</h4>
-          <p><strong>Cara A (XAMPP):</strong> copy folder ke <code>htdocs</code>, buka <code>http://localhost/web_dasar/public/login.php</code></p>
-          <p><strong>Cara B (PHP built-in):</strong></p>
-          <div class="code-block"><pre>cd public
-php -S localhost:8000</pre></div>
-          <p>Buka <code>http://localhost:8000</code></p>
+          <h4>Konfigurasi koneksi.php</h4>
+          <p>Sesuaikan port MySQL (XAMPP: 3306, paket lab: 3307) pada:</p>
+          <ul class="clean">
+            <li><code>p09/koneksi.php</code></li>
+            <li><code>p10/koneksi.php</code></li>
+          </ul>
         </div>
       </div>
 
       <div class="step">
         <div class="num">5</div>
         <div class="body">
-          <h4>Alur Penggunaan</h4>
-          <ol>
-            <li>Daftar akun di <code>daftar-akun.php</code>.</li>
-            <li>Login di <code>login.php</code>.</li>
-            <li>Kelola data mahasiswa di <code>form.php</code>.</li>
-            <li>Logout via tombol Keluar.</li>
-          </ol>
+          <h4>Menjalankan P09</h4>
+          <div class="code-block"><pre>cd p09/public
+php -S localhost:8000</pre></div>
+          <p>Buka <code>http://localhost:8000/daftar-akun.php</code></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">6</div>
+        <div class="body">
+          <h4>Menjalankan P10</h4>
+          <div class="code-block"><pre>cd p10/public
+php -S localhost:8002</pre></div>
+          <p>Buka <code>http://localhost:8002/daftar-akun.php</code></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">7</div>
+        <div class="body">
+          <h4>Menjalankan via XAMPP</h4>
+          <p>Copy repo ke <code>htdocs/web_dasar</code>, lalu akses:</p>
+          <ul class="clean">
+            <li>P09: <code>http://localhost/web_dasar/p09/public/daftar-akun.php</code></li>
+            <li>P10: <code>http://localhost/web_dasar/p10/public/daftar-akun.php</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">8</div>
+        <div class="body">
+          <h4>Materi & Dokumentasi</h4>
+          <ul class="clean">
+            <li>P09 materi: <code>p09/public/dashboard_materi.php</code></li>
+            <li>P10 materi: <code>p10/public/dashboard_materi.php</code></li>
+            <li>Teori interaktif: <code>site/presentasi.html</code></li>
+            <li>Tutorial MySQL: <code>docs/TUTORIAL_MYSQL.md</code></li>
+            <li>Tutorial XAMPP: <code>docs/TUTORIAL_XAMPP.md</code></li>
+          </ul>
         </div>
       </div>
 
       <div class="callout success">
-        <strong>Tips:</strong> Jika port 8000 dipakai, gunakan <code>php -S localhost:8001</code>.
+        <strong>Tips:</strong> Gunakan port berbeda untuk P09 dan P10 agar tidak bentrok.
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">Web Dasar · P09 Login Session</div>
+    <div class="container">Web Dasar · Monorepo Setup</div>
   </footer>
   <script src="assets/app.js"></script>
 </body>

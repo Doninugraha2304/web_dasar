@@ -41,36 +41,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Buat Akun - Praktikum Web Dasar</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="container py-5" style="max-width: 420px">
+<body>
+<div class="app-bar">
+    <div class="container-wide d-flex align-items-center justify-content-between">
+        <span class="brand">Praktikum Web Dasar<span class="brand-sub">/ P10</span></span>
+    </div>
+</div>
+<main class="container-narrow" style="margin-top:1.5rem;">
+    <div class="card-mui">
+        <h1 class="card-title">Buat akun latihan</h1>
+        <p class="card-subtitle">Hanya untuk latihan lokal.</p>
 
-<h1 class="h3 mb-3">Buat akun latihan</h1>
-<?php
-if ($pesan !== '') {
-    echo '<p class="alert alert-danger">' . $pesan . '</p>';
-}
-?>
-<!-- ===== BAGIAN 3: FORM AKUN ===== -->
-<form action="daftar-akun.php" method="post">
-    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-    <div class="mb-3">
-        <label class="form-label" for="username">Username</label>
-        <input class="form-control" id="username" name="username" type="text" pattern="[a-z0-9_]{4,30}" maxlength="30" required>
+        <?php
+        if ($pesan !== '') {
+            echo '<div class="alert alert-danger alert-mui mb-3">' . htmlspecialchars($pesan, ENT_QUOTES, 'UTF-8') . '</div>';
+        }
+        ?>
+        <form action="daftar-akun.php" method="post">
+            <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8'); ?>">
+            <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" id="username" name="username" type="text" pattern="[a-z0-9_]{4,30}" maxlength="30" required placeholder="nama_pengguna">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="nama">Nama lengkap</label>
+                <input class="form-control" id="nama" name="nama" type="text" maxlength="100" required placeholder="Nama Lengkap">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password (minimal 8 karakter)</label>
+                <input class="form-control" id="password" name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required placeholder="••••••••">
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="ulang">Ulangi password</label>
+                <input class="form-control" id="ulang" name="ulang" type="password" minlength="8" maxlength="72" autocomplete="new-password" required placeholder="••••••••">
+            </div>
+            <button class="btn btn-mui btn-mui-primary w-100" type="submit">Buat akun</button>
+        </form>
+        <p class="mt-3 mb-0 text-secondary-mui"><a class="link-mui" href="login.php">Kembali ke halaman masuk</a></p>
     </div>
-    <div class="mb-3">
-        <label class="form-label" for="nama">Nama lengkap</label>
-        <input class="form-control" id="nama" name="nama" type="text" maxlength="100" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="password">Password (minimal 8 karakter)</label>
-        <input class="form-control" id="password" name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="ulang">Ulangi password</label>
-        <input class="form-control" id="ulang" name="ulang" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
-    </div>
-    <button class="btn btn-primary w-100" type="submit">Buat akun</button>
-</form>
-<p class="mt-3 small"><a href="login.php">Kembali ke halaman masuk</a></p>
+</main>
 </body>
 </html>

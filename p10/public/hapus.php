@@ -27,7 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hapus file foto setelah data berhasil dihapus.
         hapusFoto($data['foto'] ?? null);
     } catch (PDOException $error) {
-        exit('Gagal menghapus data. Periksa database.');
+        http_response_code(400);
+        echo '<!doctype html><html lang="id"><head><meta charset="UTF-8"><link rel="stylesheet" href="css/bootstrap.min.css"><link rel="stylesheet" href="css/style.css"></head><body><div class="container-narrow" style="margin-top:2rem"><div class="card-mui"><div class="alert alert-danger alert-mui">Gagal menghapus data. Periksa database.</div><a class="btn btn-mui btn-mui-secondary mt-2" href="form.php">Kembali</a></div></div></body></html>';
+        exit;
     }
     header('Location: form.php?pesan=hapus', true, 303);
     exit;
@@ -40,19 +42,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hapus Mahasiswa - Praktikum Web Dasar</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="container py-4">
-<?php require __DIR__ . '/nav.php'; ?>
-
-<!-- ===== BAGIAN 3: KONFIRMASI SEBELUM MENGHAPUS ===== -->
-<h1>Hapus mahasiswa</h1>
-<p>Yakin ingin menghapus mahasiswa berikut? Data tidak dapat dikembalikan.</p>
-<p><?php echo htmlspecialchars($data['nama'], ENT_QUOTES, 'UTF-8'); ?></p>
-<form action="hapus.php" method="post">
-    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-    <input type="hidden" name="id" value="<?php echo $id; ?>">
-    <button class="btn btn-danger" type="submit">Ya, hapus</button>
-    <a href="form.php">Batal</a>
-</form>
+<body>
+<div class="app-bar">
+    <div class="container-wide d-flex align-items-center justify-content-between">
+        <span class="brand">Hapus Mahasiswa</span>
+        <span class="text-white-50 small">P10 Upload Foto</span>
+    </div>
+</div>
+<main class="container-narrow">
+    <?php require __DIR__ . '/nav.php'; ?>
+    <div class="card-mui">
+        <h1 class="h4 mb-2">Hapus mahasiswa</h1>
+        <p class="text-secondary-mui mb-3">Yakin ingin menghapus mahasiswa berikut? Data tidak dapat dikembalikan.</p>
+        <div class="card-mui mb-3" style="background:#fafafa">
+            <strong><?php echo htmlspecialchars($data['nama'], ENT_QUOTES, 'UTF-8'); ?></strong>
+            <div class="text-secondary-mui"><?php echo htmlspecialchars($data['nim'], ENT_QUOTES, 'UTF-8'); ?> &middot; <?php echo htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8'); ?></div>
+        </div>
+        <form action="hapus.php" method="post" class="d-flex gap-2">
+            <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <button class="btn btn-mui btn-mui-danger" type="submit">Ya, hapus</button>
+            <a class="btn btn-mui btn-mui-secondary" href="form.php">Batal</a>
+        </form>
+    </div>
+</main>
 </body>
 </html>

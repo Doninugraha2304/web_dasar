@@ -1,0 +1,253 @@
+/* MUI-inspired theme on top of Bootstrap 5, refined for a more polished look */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --mui-primary: #1976d2;
+  --mui-primary-dark: #115293;
+  --mui-primary-light: #42a5f5;
+  --mui-secondary: #00acc1;
+  --mui-error: #d32f2f;
+  --mui-success: #2e7d32;
+  --mui-warning: #ed6c02;
+  --mui-bg: #eef2f7;
+  --mui-surface: #ffffff;
+  --mui-text: #1c1b1f;
+  --mui-text-secondary: #5f6368;
+  --mui-divider: #e3e8ef;
+  --mui-radius: 14px;
+  --mui-radius-sm: 8px;
+  --mui-shadow-1: 0 1px 2px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.10);
+  --mui-shadow-2: 0 4px 12px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.06);
+  --mui-shadow-3: 0 12px 32px rgba(15,23,42,0.12), 0 4px 8px rgba(15,23,42,0.06);
+}
+
+* { font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif; box-sizing: border-box; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(25,118,210,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(0,172,193,0.08), transparent 60%),
+    var(--mui-bg);
+  color: var(--mui-text);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* App bar */
+.app-bar {
+  background: linear-gradient(135deg, var(--mui-primary) 0%, #0d47a1 100%);
+  color: #fff;
+  box-shadow: var(--mui-shadow-2);
+  padding: 0.875rem 1.25rem;
+  margin-bottom: 1.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+.app-bar a { color: #fff; text-decoration: none; font-weight: 500; }
+.app-bar .brand { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+.app-bar .brand-sub { font-size: 0.8rem; opacity: 0.8; margin-left: 0.5rem; font-weight: 400; }
+
+/* Cards */
+.card-mui {
+  background: var(--mui-surface);
+  border: 1px solid rgba(15,23,42,0.04);
+  border-radius: var(--mui-radius);
+  box-shadow: var(--mui-shadow-1);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-mui:hover { box-shadow: var(--mui-shadow-2); }
+.card-mui .card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+.card-mui .card-subtitle { color: var(--mui-text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem; }
+
+/* Buttons */
+.btn-mui {
+  border-radius: var(--mui-radius-sm);
+  text-transform: none;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  box-shadow: none;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-mui:hover { transform: translateY(-1px); }
+.btn-mui:active { transform: translateY(0); }
+.btn-mui-primary {
+  background: linear-gradient(135deg, var(--mui-primary) 0%, var(--mui-primary-dark) 100%);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(25,118,210,0.25);
+}
+.btn-mui-primary:hover { color: #fff; box-shadow: 0 6px 16px rgba(25,118,210,0.35); }
+.btn-mui-secondary {
+  background: #fff;
+  color: var(--mui-primary);
+  border: 1px solid var(--mui-divider);
+}
+.btn-mui-secondary:hover { background: #f5f8fd; border-color: var(--mui-primary); color: var(--mui-primary); }
+.btn-mui-danger {
+  background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(211,47,47,0.25);
+}
+.btn-mui-danger:hover { color: #fff; box-shadow: 0 6px 16px rgba(211,47,47,0.35); }
+.btn-mui-text {
+  background: transparent;
+  color: var(--mui-primary);
+  border: none;
+  padding: 0.5rem 0.75rem;
+  box-shadow: none;
+}
+.btn-mui-text:hover { background: rgba(25,118,210,0.06); transform: none; box-shadow: none; }
+.btn-mui-sm { padding: 0.35rem 0.85rem; font-size: 0.875rem; }
+
+/* Forms */
+.form-control, .form-select {
+  border-radius: var(--mui-radius-sm);
+  border: 1px solid var(--mui-divider);
+  padding: 0.75rem 0.95rem;
+  font-size: 0.95rem;
+  background: #fafbfc;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--mui-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(25,118,210,0.15);
+  outline: none;
+}
+.form-label { font-size: 0.85rem; color: var(--mui-text-secondary); margin-bottom: 0.35rem; font-weight: 500; }
+
+/* Tables */
+.table-mui {
+  background: var(--mui-surface);
+  border-radius: var(--mui-radius);
+  overflow: hidden;
+  box-shadow: var(--mui-shadow-1);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+.table-mui thead th {
+  background: #f7f9fc;
+  color: var(--mui-text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--mui-divider);
+  padding: 0.85rem 1rem;
+  position: sticky;
+  top: 0;
+}
+.table-mui tbody td { border-bottom: 1px solid var(--mui-divider); vertical-align: middle; padding: 0.85rem 1rem; }
+.table-mui tbody tr:last-child td { border-bottom: none; }
+.table-mui tbody tr { transition: background 0.15s; }
+.table-mui tbody tr:hover { background: #f5f8fd; }
+
+/* Alerts */
+.alert-mui {
+  border-radius: var(--mui-radius-sm);
+  border: none;
+  box-shadow: var(--mui-shadow-1);
+  padding: 0.85rem 1rem;
+}
+
+/* Avatars / thumbnails */
+.avatar-initial {
+  width: 72px; height: 72px;
+  border-radius: var(--mui-radius-sm);
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  color: var(--mui-primary-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.5rem;
+  box-shadow: var(--mui-shadow-1);
+}
+.img-thumb {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border-radius: var(--mui-radius-sm);
+  box-shadow: var(--mui-shadow-1);
+  transition: transform 0.2s;
+}
+.img-thumb:hover { transform: scale(1.05); }
+
+/* Layout containers */
+.container-narrow { max-width: 460px; margin: 0 auto; padding: 0 1rem; }
+.container-wide { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
+
+.link-mui { color: var(--mui-primary); text-decoration: none; font-weight: 500; }
+.link-mui:hover { text-decoration: underline; }
+
+h1, h2, h3 { font-weight: 600; color: var(--mui-text); letter-spacing: -0.01em; }
+.text-secondary-mui { color: var(--mui-text-secondary); font-size: 0.875rem; }
+
+.divider { border-top: 1px solid var(--mui-divider); margin: 1rem 0; }
+
+/* Login split layout */
+.login-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 120px);
+  gap: 2rem;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+.login-brand {
+  background: linear-gradient(135deg, var(--mui-primary) 0%, #0d47a1 60%, #00acc1 100%);
+  color: #fff;
+  border-radius: var(--mui-radius);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--mui-shadow-3);
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-brand::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.login-brand::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -40px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.login-brand h1 { color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; position: relative; }
+.login-brand p { color: rgba(255,255,255,0.85); font-size: 1rem; position: relative; max-width: 360px; }
+.login-brand .badge-pill {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+/* Code blocks */
+.code-block { background:#1e1e2e; color:#eaeaea; padding:14px; border-radius:8px; overflow-x:auto; font-size:0.85em; white-space:pre; border: 1px solid rgba(255,255,255,0.05); }
+
+/* Responsive */
+@media (max-width: 820px) {
+  .login-shell { grid-template-columns: 1fr; }
+  .login-brand { min-height: 260px; padding: 2rem 1.75rem; }
+}
+@media (max-width: 576px) {
+  .card-mui { padding: 1.25rem; }
+  .app-bar { padding: 0.75rem 1rem; }
+}
